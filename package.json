@@ -4,7 +4,9 @@
   "description": "solidity encoding && decoding",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "gulp",
+    "test": "mocha",
+    "test-coveralls": "istanbul cover _mocha -- -R spec && cat coverage/lcov.info | coveralls --verbose"
   },
   "author": "",
   "license": "MIT",
