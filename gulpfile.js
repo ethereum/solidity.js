@@ -2,7 +2,6 @@
 
 'use strict';
 
-var version = require('./lib/version.json');
 var path = require('path');
 
 var del = require('del');
@@ -13,7 +12,6 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var source = require('vinyl-source-stream');
 var exorcist = require('exorcist');
-var bower = require('bower');
 var streamify = require('gulp-streamify');
 var replace = require('gulp-replace');
 
@@ -28,14 +26,7 @@ var browserifyOptions = {
     bundleExternal: false
 };
 
-gulp.task('bower', ['version'], function(cb){
-    bower.commands.install().on('end', function (installed){
-        console.log(installed);
-        cb();
-    });
-});
-
-gulp.task('lint', ['bower'], function(){
+gulp.task('lint', function(){
     return gulp.src(['./*.js', './lib/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
@@ -61,5 +52,5 @@ gulp.task('watch', function() {
     gulp.watch(['./lib/*.js'], ['lint', 'build']);
 });
 
-gulp.task('default', ['bower', 'lint', 'clean', 'light', 'standalone']);
+gulp.task('default', ['lint', 'clean', 'standalone']);
 
